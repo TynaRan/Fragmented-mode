@@ -386,7 +386,7 @@ end
 
 -- Entities with their URLs and spawn conditions
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/65b34c4d01746bbf74438681d03ac2f3/raw/3549cd1ee3e2cf0b2e67255d6b9dd67cf5e37e94/Dread", 150, true)
-loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/e99a2821f886b253bb65af8c2ead1368/raw/ca3c26cd0d278ad5c9a7389cae55ebe358ade61d/Daze", math.random(6, 40), false)
+loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(10, 40), false)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker", 500, false)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/cced3f24fa9d4146852441970bf42f9d/raw/7ad70c2ca25409f5936f60e61f06937aed123cef/Hungered()", 350, true)
