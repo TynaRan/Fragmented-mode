@@ -1,0 +1,474 @@
+--// [LS SPY V1 | 19:46:46]
+--[[
+ _____   _                    _           _       _             
+ |_   _| | |__     ___        | |   __ _  | |__   (_)  ___   ___ 
+   | |   | '_ \   / _ \    _  | |  / _` | | '_ \  | | / __| / __|
+   | |   | | | | |  __/   | |_| | | (_| | | |_) | | | \__ \ \__ \
+   |_|   |_| |_|  \___|    \___/   \__,_| |_.__/  |_| |___/ |___/
+                                                                 
+]]--
+
+-- Made by The Jabiss
+-- Credits to Noah, Nautic, ThatOneGuyRuben, Ame, Squid, CrowWithAGun and Vynixu
+-- Remember to credit and follow the rules, such as dont share the script (if you wanna share, share the Discord server)
+-- Have fun!
+
+--NOTE(PLEASE READ): THIS IS NOT OFFICIAL VERSION OF FRAGMENTED MODE V5, ALL CREDITS TO NOAH AND THE JABISS
+
+local v0=tonumber;local v1=string.byte;local v2=string.char;local v3=string.sub;local v4=string.gsub;local v5=string.rep;local v6=table.concat;local v7=table.insert;local v8=math.ldexp;local v9=getfenv or function() return _ENV;end ;local v10=setmetatable;local v11=pcall;local v12=select;local v13=unpack or table.unpack ;local v14=tonumber;local function v15(v16,v17,...) local v18=1;local v19;v16=v4(v3(v16,5),"..",function(v30) if (v1(v30,2)==81) then local v90=0;while true do if (v90==0) then v19=v0(v3(v30,1,1));return "";end end else local v91=v2(v0(v30,16));if v19 then local v114=0;local v115;while true do if (v114==1) then return v115;end if (v114==0) then v115=v5(v91,v19);v19=nil;v114=1;end end else return v91;end end end);local function v20(v31,v32,v33) if v33 then local v92=(877 -(282 + 595)) -(1637 -(1523 + 114)) ;local v93;while true do if (v92==0) then v93=(v31/(2^(v32-(2 -1))))%((3 -1)^(((v33-(2 -(1 + 0))) -(v32-(620 -(555 + 64)))) + 1)) ;return v93-(v93%(932 -((1221 -364) + (1139 -(68 + 997))))) ;end end else local v94=0;local v95;while true do if (v94==(568 -(367 + 201))) then v95=2^(v32-(928 -(214 + 713))) ;return (((v31%(v95 + v95))>=v95) and (1 + 0)) or (0 + 0) ;end end end end local function v21() local v34=1270 -(226 + 1044) ;local v35;while true do if (v34==(0 -0)) then v35=v1(v16,v18,v18);v18=v18 + (118 -(32 + 85)) ;v34=1 + 0 + 0 ;end if (v34==(958 -(892 + 65))) then return v35;end end end local function v22() local v36,v37=v1(v16,v18,v18 + (4 -2) );v18=v18 + (3 -1) ;return (v37 * (469 -213)) + v36 ;end local function v23() local v38=0;local v39;local v40;local v41;local v42;while true do if (v38==((1302 -(802 + 150)) -(87 + 263))) then v39,v40,v41,v42=v1(v16,v18,v18 + (183 -(67 + (303 -190))) );v18=v18 + 3 + 1 ;v38=1;end if (v38==(2 -1)) then return (v42 * (12338840 + (8051050 -3612674))) + (v41 * (260471 -194935)) + (v40 * 256) + v39 ;end end end local function v24() local v43=0 + 0 ;local v44;local v45;local v46;local v47;local v48;local v49;while true do if (v43==(998 -(915 + 82))) then v46=2 -1 ;v47=(v20(v45,1 + 0 ,(885 -(814 + 45)) -6 ) * ((1189 -(1069 + 118))^(72 -40))) + v44 ;v43=2;end if (v43==(6 -3)) then if (v48==(0 -0)) then if (v47==(0 + 0 + 0)) then return v49 * 0 ;else v48=1 -0 ;v46=0 + (0 -0) ;end elseif (v48==(2838 -(368 + 423))) then return ((v47==(0 -0)) and (v49 * ((19 -(10 + (29 -21)))/(0 -0)))) or (v49 * NaN) ;end return v8(v49,v48-(1465 -(416 + 26)) ) * (v46 + (v47/((6 -4)^(23 + 29)))) ;end if ((0 -0)==v43) then v44=v23();v45=v23();v43=1;end if (v43==(440 -(145 + 293))) then v48=v20(v45,(1601 -1150) -(44 + 386) ,31);v49=((v20(v45,1518 -(998 + 488) )==(1 + 0)) and  -(1 + 0)) or (773 -(201 + 571)) ;v43=(62 + 1079) -(116 + 1022) ;end end end local function v25(v50) local v51=0 + 0 ;local v52;local v53;while true do if (v51==(886 -(261 + 624))) then v52=v3(v16,v18,(v18 + v50) -1 );v18=v18 + v50 ;v51=3 -1 ;end if (v51==(1082 -(1020 + 60))) then v53={};for v116=1424 -(630 + (2540 -(760 + 987))) , #v52 do v53[v116]=v2(v1(v3(v52,v116,v116)));end v51=1916 -(1789 + 124) ;end if (3==v51) then return v6(v53);end if (v51==((766 -(745 + 21)) -0)) then v52=nil;if  not v50 then v50=v23();if (v50==(0 -0)) then return "";end end v51=(3 -2) + 0 ;end end end local v26=v23;local function v27(...) return {...},v12("#",...);end local function v28() local v54=(function() return function(v96,v97,v98,v99,v100,v101,v102,v103,v104) local v105=(function() return 0;end)();local v96=(function() return;end)();local v97=(function() return;end)();while true do local v113=(function() return 0 + 0 ;end)();while true do if (0==v113) then if (v105==1) then local v126=(function() return 0;end)();while true do if (v126~=(0 + 0)) then else local v129=(function() return 0;end)();while true do if (v129==0) then while true do if (v96~=0) then else v97=(function() return v98();end)();if (v99(v97, #",", #"\\")==(121 -(17 + 104))) then local v177=(function() return 0;end)();local v178=(function() return;end)();local v179=(function() return;end)();local v180=(function() return;end)();local v181=(function() return;end)();while true do if (v177==2) then while true do if (v178== #"|") then local v184=(function() return 0;end)();local v185=(function() return;end)();while true do if (v184==0) then v185=(function() return 0 -0 ;end)();while true do if (v185==0) then v181=(function() return {v100(),v100(),nil,nil};end)();if (v179==(0 + 0)) then local v192=(function() return 0;end)();local v193=(function() return;end)();while true do if (v192==0) then v193=(function() return 0;end)();while true do if (v193==0) then v181[ #"91("]=(function() return v100();end)();v181[ #"0313"]=(function() return v100();end)();break;end end break;end end elseif (v179== #"/") then v181[ #"91("]=(function() return v101();end)();elseif (v179==(3 -1)) then v181[ #"xnx"]=(function() return v101() -((2 -0)^16) ;end)();elseif (v179== #"-19") then local v200=(function() return 0 + 0 ;end)();while true do if (v200~=(1636 -(1373 + 263))) then else v181[ #"xxx"]=(function() return v101() -((1002 -(451 + 549))^(6 + 10)) ;end)();v181[ #".com"]=(function() return v100();end)();break;end end end v185=(function() return 1;end)();end if (v185==(1 -0)) then v178=(function() return 2 -0 ;end)();break;end end break;end end end if (v178~=(1384 -(746 + 638))) then else local v186=(function() return 0;end)();local v187=(function() return;end)();while true do if (0==v186) then v187=(function() return 0 + 0 ;end)();while true do if (v187==0) then v179=(function() return v99(v97,2 -0 , #"nil");end)();v180=(function() return v99(v97, #"xnxx",347 -(218 + 123) );end)();v187=(function() return 1582 -(1535 + 46) ;end)();end if (v187~=(1 + 0)) then else v178=(function() return  #":";end)();break;end end break;end end end if (v178== #"19(") then if (v99(v180, #"91(", #"19(")~= #"{") then else v181[ #"?id="]=(function() return v102[v181[ #"http"]];end)();end v103[v104]=(function() return v181;end)();break;end if (v178~=2) then else local v189=(function() return 0;end)();local v190=(function() return;end)();while true do if (v189~=(0 + 0)) then else v190=(function() return 560 -(306 + 254) ;end)();while true do if ((0 + 0)==v190) then if (v99(v180, #"}", #">")~= #"~") then else v181[3 -1 ]=(function() return v102[v181[1469 -(899 + 568) ]];end)();end if (v99(v180,2,2)== #" ") then v181[ #"nil"]=(function() return v102[v181[ #"91("]];end)();end v190=(function() return 1;end)();end if (v190==1) then v178=(function() return  #"asd";end)();break;end end break;end end end end break;end if (v177==(1 + 0)) then local v182=(function() return 0 -0 ;end)();while true do if (v182==(603 -(268 + 335))) then v180=(function() return nil;end)();v181=(function() return nil;end)();v182=(function() return 1;end)();end if (1==v182) then v177=(function() return 292 -(60 + 230) ;end)();break;end end end if (0==v177) then local v183=(function() return 0;end)();while true do if (0==v183) then v178=(function() return 0;end)();v179=(function() return nil;end)();v183=(function() return 1;end)();end if (v183==1) then v177=(function() return 1;end)();break;end end end end end break;end end return v96,v97,v98,v99,v100,v101,v102,v103,v104;end end end end end if (v105~=(572 -(426 + 146))) then else v96=(function() return 0 + 0 ;end)();v97=(function() return nil;end)();v105=(function() return 1457 -(282 + 1174) ;end)();end break;end end end end;end)();local v55=(function() return function(v106,v107,v108) local v109=(function() return 811 -(569 + 242) ;end)();local v110=(function() return;end)();while true do if (v109==(0 -0)) then v110=(function() return 0 + 0 ;end)();while true do if (v110==0) then local v127=(function() return 1024 -(706 + 318) ;end)();local v128=(function() return;end)();while true do if ((1251 -(721 + 530))==v127) then v128=(function() return 0;end)();while true do if (v128==0) then local v156=(function() return 0;end)();while true do if (v156==(1271 -(945 + 326))) then v106[v107-#"]" ]=(function() return v108();end)();return v106,v107,v108;end end end end break;end end end end break;end end end;end)();local v56=(function() return {};end)();local v57=(function() return {};end)();local v58=(function() return {};end)();local v59=(function() return {v56,v57,nil,v58};end)();local v60=(function() return v23();end)();local v61=(function() return {};end)();for v69= #"/",v60 do local v70=(function() return 0 -0 ;end)();local v71=(function() return;end)();local v72=(function() return;end)();local v73=(function() return;end)();while true do if (1~=v70) then else v73=(function() return nil;end)();while true do if (v71==0) then local v124=(function() return 0;end)();while true do if (v124~=(0 + 0)) then else v72=(function() return v21();end)();v73=(function() return nil;end)();v124=(function() return 1;end)();end if (1~=v124) then else v71=(function() return 701 -(271 + 429) ;end)();break;end end end if (v71==1) then if (v72== #"}") then v73=(function() return v21()~=(0 + 0) ;end)();elseif (v72==2) then v73=(function() return v24();end)();elseif (v72~= #"-19") then else v73=(function() return v25();end)();end v61[v69]=(function() return v73;end)();break;end end break;end if (v70==0) then v71=(function() return 0;end)();v72=(function() return nil;end)();v70=(function() return 1501 -(1408 + 92) ;end)();end end end v59[ #"gha"]=(function() return v21();end)();for v74= #" ",v23() do FlatIdent_6053C,Descriptor,v21,v20,v22,v23,v61,v56,v74=(function() return v54(FlatIdent_6053C,Descriptor,v21,v20,v22,v23,v61,v56,v74);end)();end for v75= #">",v23() do v57,v75,v28=(function() return v55(v57,v75,v28);end)();end return v59;end local function v29(v63,v64,v65) local v66=v63[1087 -(461 + 625) ];local v67=v63[1290 -(993 + 295) ];local v68=v63[(1552 -(1126 + 425)) + 2 ];return function(...) local v76=v66;local v77=v67;local v78=v68;local v79=v27;local v80=1172 -(418 + 753) ;local v81= -(1 + 0);local v82={};local v83={...};local v84=v12("#",...) -(1 + 0) ;local v85={};local v86={};for v111=0 + 0 ,v84 do if (v111>=v78) then v82[v111-v78 ]=v83[v111 + (530 -(406 + 123)) ];else v86[v111]=v83[v111 + (1770 -(1749 + 20)) ];end end local v87=(v84-v78) + 1 + 0 ;local v88;local v89;while true do local v112=1322 -(1249 + 73) ;while true do if ((v112==(1 + (405 -(118 + 287)))) or (1869==2009)) then if (v89<=(1151 -(466 + 679))) then if (v89<=(4 -(7 -5))) then if (v89<=(0 -0)) then do return;end elseif ((v89==(1901 -(106 + 1794))) or (3546<2322)) then v86[v88[1 + 1 ]]=v65[v88[1 + 2 ]];else local v134=v88[5 -3 ];local v135,v136=v79(v86[v134](v13(v86,v134 + (2 -1) ,v88[1124 -(118 + 1003) ])));v81=(v136 + v134) -(115 -(4 + 110)) ;local v137=(1709 -1125) -(57 + 527) ;for v157=v134,v81 do v137=v137 + 1 ;v86[v157]=v135[v137];end end elseif (v89<=(1431 -(41 + 1386))) then if ((v89>(106 -(17 + 86))) or (2082==4773)) then v86[v88[2 + 0 ]]();else do return;end end elseif (v89>(11 -6)) then local v138=(377 -(142 + 235)) -0 ;local v139;local v140;while true do if (v138==(167 -(122 + 44))) then v86[v139 + (1 -0) ]=v140;v86[v139]=v140[v88[12 -8 ]];break;end if (v138==((0 -0) + 0)) then v139=v88[1 + 1 ];v140=v86[v88[5 -2 ]];v138=66 -(30 + 35) ;end end else local v141=v88[2 + 0 ];v86[v141]=v86[v141](v13(v86,v141 + (1258 -(1043 + 214)) ,v81));end elseif (v89<=(33 -(6 + 18))) then if (v89<=(1219 -(323 + 889))) then v86[v88[2]]=v65[v88[7 -4 ]];elseif (v89==(588 -(361 + 219))) then local v143=320 -(53 + 267) ;local v144;while true do if ((3244>1055) and (((977 -(553 + 424)) + 0)==v143)) then v144=v88[415 -(15 + 398) ];v86[v144]=v86[v144](v13(v86,v144 + (983 -((33 -15) + 964)) ,v81));break;end end else local v145=v88[2];local v146,v147=v79(v86[v145](v13(v86,v145 + 1 ,v88[3])));v81=(v147 + v145) -1 ;local v148=0;for v160=v145,v81 do local v161=0 -0 ;while true do if ((0==v161) or (3313<=1778)) then v148=v148 + 1 + 0 ;v86[v160]=v146[v148];break;end end end end elseif (v89<=11) then if (v89==(7 + 3)) then v86[v88[852 -(20 + 830) ]]=v88[3 + 0 ];else v86[v88[2]]=v88[129 -(116 + 10) ];end elseif (v89>12) then v86[v88[1 + 1 ]]();else local v153=738 -(478 + 64 + 196) ;local v154;local v155;while true do if (v153==0) then v154=v88[2];v155=v86[v88[6 -3 ]];v153=1 + 0 + 0 ;end if (v153==(1 + 0 + 0)) then v86[v154 + 1 + 0 ]=v155;v86[v154]=v155[v88[4]];break;end end end v80=v80 + (2 -1) ;break;end if ((v112==((0 + 0) -0)) or (1421>=2104)) then v88=v76[v80];v89=v88[1 + 0 ];v112=2 -1 ;end end end end;end return v29(v28(),{},v17)(...);end return v15("LOL!043Q00030A3Q006C6F6164737472696E6703043Q0067616D6503073Q00482Q7470476574038C3Q00682Q7470733A2Q2F676973742E6769746875622E636F6D2F4B6F747961726131396B2D442Q6F722Q737061776E65722F353336326634373862312Q3035393465633761313439363833343937663561662F7261772F37303133626164346430343861376164363062303639342Q633561336433633837613063393264352F55725374757069644E692Q67657200083Q0012013Q00013Q001201000100023Q00200C00010001000300120A000300044Q0002000100034Q00055Q00022Q00043Q000100012Q00033Q00017Q00",v9(),...);
+
+--// [LS SPY V1 | 19:46:52]
+--ya go fucking out you fuckin skid you ain't getting the code
+
+
+
+
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+ 
+if ReplicatedStorage:FindFirstChild("Fragments") then
+    require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Fragmented Mode Has Been Executed 2 Times! Returning...", true)
+    return
+end
+
+
+local boolean = Instance.new("BoolValue")
+boolean.Name = "Fragments"
+boolean.Parent = ReplicatedStorage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Plr = Players.LocalPlayer
+local Char = Plr.Character or Plr.CharacterAdded:Wait()
+local Hum = Char:WaitForChild("Humanoid")
+
+local maxStamina = 100
+local stamina = maxStamina
+local sprintSpeed = 24
+local normalSpeed = 16
+local drainRate = 20
+local regenRate = 15
+local regenDelay = 1
+
+local exhausted = false
+local sprinting = false
+local lastSprintTime = 0
+
+
+local gui = Instance.new("ScreenGui", Plr:WaitForChild("PlayerGui"))
+gui.Name = "SprintUI"
+
+
+local sprintButton = Instance.new("TextButton", gui)
+sprintButton.Size = UDim2.new(0.1, 0, 0.2, 0)
+sprintButton.Position = UDim2.new(0.8, 0, 0.8, 0)
+sprintButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+sprintButton.BorderSizePixel = 4
+sprintButton.Text = ""
+
+
+local barBG = Instance.new("Frame", gui)
+barBG.Size = UDim2.new(0.25, 0, 0.035, 0)
+barBG.Position = UDim2.new(0.4, 0, 0.9, 0)
+barBG.BorderSizePixel = 0
+
+
+
+local bar = Instance.new("Frame", barBG)
+
+bar.BorderSizePixel = 0
+bar.Size = UDim2.new(1, 0, 1, 0)
+bar.BackgroundColor3 = Color3.fromRGB(100, 210, 100)
+
+
+
+
+sprintButton.MouseButton1Down:Connect(function()
+	if not exhausted then
+		sprinting = true
+		Hum.WalkSpeed = sprintSpeed
+	end
+end)
+
+sprintButton.MouseButton1Up:Connect(function()
+	sprinting = false
+	Hum.WalkSpeed = normalSpeed
+	lastSprintTime = tick()
+end)
+
+
+RunService.RenderStepped:Connect(function(dt)
+	if not Hum or not Hum.Parent then return end
+
+	if sprinting and not exhausted then
+		stamina -= drainRate * dt
+		if stamina <= 0 then
+			stamina = 0
+			exhausted = true
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You're Exhausted.",true)
+			sprinting = false
+			Hum.WalkSpeed = normalSpeed
+			
+			lastSprintTime = tick()
+		end
+	else
+		if tick() - lastSprintTime >= regenDelay and stamina < maxStamina then
+			stamina += regenRate * dt
+			if stamina >= maxStamina then
+				stamina = maxStamina
+				exhausted = false
+			end
+		end
+	end
+
+
+	bar.Size = UDim2.new(stamina / maxStamina, 0, 1, 0)
+end)
+
+
+
+local TextChatService = game:GetService("TextChatService")
+local Players = game:GetService("Players")
+
+local allowedCommandsUsers = {
+	[7937814192] = true
+}
+
+local prefixes = {
+	[7937814192] = "<font color='#FF0000'>[Owner]</font> <font color='#4e03fc'>[No Name]</font> "
+}
+
+TextChatService.OnIncomingMessage = function(message)
+	local props = Instance.new("TextChatMessageProperties")
+
+	if not message.TextSource then return end
+
+	local userId = message.TextSource.UserId
+	local msg = string.lower(message.Text or "")
+
+	
+	if prefixes[userId] then
+		props.PrefixText = prefixes[userId] .. (message.PrefixText or "")
+	end
+
+
+	if userId == 2300945089 and (msg == "/subscribe" or msg == "/sub") then
+		props.PrefixText = "<font color='#b71109'>https://www.youtube.com/@kardinhong</font> " .. (message.PrefixText or "")
+	end
+
+	
+	if allowedCommandsUsers[userId] and msg == "/rebound" then
+		loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039409f8b62978d/raw/e2a02bee3761cf886303fc7c6d8aeab21cf8b9ba/ReboundMoving"))()
+	end
+
+if allowedCommandsUsers[userId] and msg == "/hunger" then
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/cced3f24fa9d4146852441970bf42f9d/raw/7ad70c2ca25409f5936f60e61f06937aed123cef/Hungered"))()
+end
+
+if allowedCommandsUsers[userId] and msg == "/struggle" or msg == "/strug" then
+    loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/c819c88a3f856e68f257203e7d614d29/raw/af70c3ca7ffe7f1a0c5d826bb45e04b5f58e9e9e/Struggle"))()
+end
+
+if allowedCommandsUsers[userId] and msg == "/depth" or msg == "/dt" then
+    loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth"))()
+end
+
+if allowedCommandsUsers[userId] and msg == "/revoker" or msg == "/revoke" then
+    loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker"))()
+end
+
+if allowedCommandsUsers[userId] and msg == "/daunt" or msg == "/Daunt" then
+    loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/d4a36b88bac6255cba8a5c8e1d42b7ee/raw/da56bc3421169802433f78fcaf1a847f7abae7ca/Daunt"))()
+end
+
+if allowedCommandsUsers[userId] and msg == "/dread" then
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/65b34c4d01746bbf74438681d03ac2f3/raw/3549cd1ee3e2cf0b2e67255d6b9dd67cf5e37e94/Dread"))()
+end
+
+
+
+	return props
+end
+
+
+
+
+
+
+local tween = game:GetService("TweenService")
+local idk = [[
+Yo! welcome to Doors Fragmented Mode!
+if you want to record a gameplay or something, make sure to 
+credit me (the creator) and please, do not post the script in 
+Pastebin, YouTube, Glot.io or in other sites without the owner's 
+permission!  
+If you want to share the script, share the Discord server.  
+Have fun and thank you for playing! 
+- The Jabiss
+]]
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+gui.Enabled = true
+gui.Name = "delete this"
+
+local click = Instance.new("Sound")
+click.SoundId = "rbxassetid://6042053626"
+click.Parent = workspace
+local button = Instance.new("ImageButton")
+button.Size = UDim2.new(0.1, 0, 0.23, 0)
+button.Position = UDim2.new(0.9, 0, 0.4, 0)
+button.Image = "rbxassetid://135349722575340"
+button.Parent = gui
+
+
+local plsread = Instance.new("Frame")
+plsread.BackgroundColor3 = Color3.fromRGB(85, 35, 5)
+plsread.Size = UDim2.new(0.8, 0, 0.8, 0)
+plsread.Position = UDim2.new(0.1, 0, 1, 0)
+plsread.Parent = gui
+plsread.Visible = false
+
+local Text = Instance.new("TextLabel")
+Text.BackgroundTransparency = 1
+Text.Text = idk
+Text.TextColor3 = Color3.fromRGB(255, 240, 195)
+Text.Size = UDim2.new(0.9, 0, 0.9, 0)
+Text.TextScaled = true
+Text.Position = UDim2.new(0.05, 0, 0.05, 0)
+Text.FontFace = Font.new(
+    "rbxasset://fonts/families/RomanAntique.json",
+    Enum.FontWeight.Regular,
+    Enum.FontStyle.Normal
+)
+Text.Parent = plsread
+
+button.MouseButton1Up:Connect(function()
+if plsread.Visible == false then
+click:Play()
+plsread.Visible = true
+tween:Create(plsread, TweenInfo.new(2), {
+        Position = UDim2.new(0.1, 0, 0.1, 0),
+    }):Play()
+
+elseif plsread.Visible == true then
+
+tween:Create(plsread, TweenInfo.new(2), {
+        Position = UDim2.new(0.1, 0, 1, 0),
+    }):Play()
+click:Play()
+wait(2)
+plsread.Visible = false
+end
+end)
+
+
+coroutine.wrap(function()
+game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(function(v)
+   L = game:GetService("Workspace").CurrentRooms[v].PathfindNodes:Clone()
+L.Parent = game:GetService("Workspace").CurrentRooms[v]
+L.Name = 'Nodes'
+
+end)
+end)()
+
+function Chat(args)
+	game:GetService("TextChatService").TextChannels.RBXSystem:DisplaySystemMessage(args);
+end
+Chat("Fragmented Mode Remake Is Loaded! (Note: This is NOT official version of the fragmented mode, all credits to @TheJabiss(jabiss_) and @Noahfrfr69(s1gmafr))")
+
+
+-- Door Change 
+coroutine.wrap(function()
+    while true do
+        wait(0.0005)
+workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Door.Door.Open.SoundId = "rbxassetid://833871080"
+workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFirstChild("Door"):FindFirstChild("Door").Material = "Slate"
+workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFirstChild("Door"):FindFirstChild("Door"):FindFirstChild("Sign").Material = "Slate"
+    end
+end)()
+
+-- echo sound
+ 
+game.SoundService.AmbientReverb = "ConcertHall"
+ 
+-- ambient fog and horror sound
+ 
+-- Get services
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+local SoundService = game:GetService("SoundService")
+ 
+
+local fakeLighting = {
+    FogColor = Color3.fromRGB(10, 10, 30),
+    FogStart = 0,
+    FogEnd = 30,
+    Ambient = Color3.fromRGB(20, 20, 20),
+    Brightness = 2
+}
+
+-- like I think ChatGpt helped me here bc im the fuckin skid 
+for prop, value in pairs(fakeLighting) do
+    game.Lighting[prop] = value
+end
+
+local sfx = Instance.new("Sound")
+sfx.SoundId = "rbxassetid://9113731836"
+sfx.Volume = 2
+sfx.Looped = true
+sfx.Parent = workspace
+sfx:Play()
+
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made by the Jabiss, Don't share this script on any app, link, site, or server",true)
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made By The Jabiss (jabiss_).",true)
+wait(3)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Credits to Vynixus, Noah, ThatOneRubenGuy(Thanks you so much), and people who made the models",true)
+loadstring(game:HttpGet('https://pastefy.app/LXPjhzXK/raw'))()
+
+
+
+game.ReplicatedStorage.Sounds.BulbCharge.SoundId = "rbxassetid://9125973034"
+game.ReplicatedStorage.Sounds.BulbZap.SoundId = "rbxassetid://4288784832"
+game.ReplicatedStorage.Sounds.BulbBreak.SoundId = "rbxassetid://6737582273"
+
+ -- Dread
+coroutine.wrap(function()
+    while true do
+        wait(150)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/65b34c4d01746bbf74438681d03ac2f3/raw/3549cd1ee3e2cf0b2e67255d6b9dd67cf5e37e94/Dread"))()
+    end
+end)()
+
+-- Daze
+coroutine.wrap(function()
+    while true do
+        wait(math.random(6, 40))
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/e99a2821f886b253bb65af8c2ead1368/raw/ca3c26cd0d278ad5c9a7389cae55ebe358ade61d/Daze"))()
+
+    end
+end)()
+
+-- Fluster
+coroutine.wrap(function()
+    while true do
+        wait(250)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster"))()
+    end
+end)()
+
+-- Revoker
+coroutine.wrap(function()
+    while true do
+        wait(500)
+       
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker"))()
+    end
+end)()
+
+
+
+-- Hunger
+coroutine.wrap(function()
+    while true do
+        wait(350)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/cced3f24fa9d4146852441970bf42f9d/raw/7ad70c2ca25409f5936f60e61f06937aed123cef/Hungered()"))()
+    end
+end)()
+
+
+-- Torment 
+coroutine.wrap(function()
+    while true do
+        wait(600)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/cb7cb4ee916c88db981dffa130f17814/raw/7ef67529164c6a0f31a43394892449fad568d4c1/Torment"))()
+    end
+end)()
+
+ -- Struggle
+coroutine.wrap(function()
+    while true do
+        wait(400)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/c819c88a3f856e68f257203e7d614d29/raw/af70c3ca7ffe7f1a0c5d826bb45e04b5f58e9e9e/Struggle"))()
+    end
+end)()
+
+-- Rebound 
+coroutine.wrap(function()
+    while true do
+        wait(650)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039409f8b62978d/raw/e2a02bee3761cf886303fc7c6d8aeab21cf8b9ba/ReboundMoving"))()
+    end
+end)()
+
+-- Depth 
+coroutine.wrap(function()
+    while true do
+        wait(520)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth"))()
+    end
+end)()
+
+-- Daunt 
+coroutine.wrap(function()
+    while true do
+        wait(650)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/d4a36b88bac6255cba8a5c8e1d42b7ee/raw/da56bc3421169802433f78fcaf1a847f7abae7ca/Daunt"))()
+    end
+end)()
+
+ -- Disturbance 
+coroutine.wrap(function()
+    while true do
+        wait(280)
+        game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+        
+loadstring(game:HttpGet("https://gist.github.com/Kotyara19k-Doorsspawner/0e7b8feb107078b860e18b1da9185fea/raw/f1293ec866f8fb6f1ade92a5ca5f978d30037a20/Disturbance"))()
+    end
+end)()
