@@ -302,7 +302,7 @@ end)()
 function Chat(args)
 	game:GetService("TextChatService").TextChannels.RBXSystem:DisplaySystemMessage(args);
 end
-Chat("Fragmented Mode V4Is Loaded! (Note: This is NOT official version of the fragmented mode, all credits to @TheJabiss(jabiss_) and @Noahfrfr69(s1gmafr))")
+Chat("Fragmented Mode V4 Loaded! (Note: This is NOT official version of the fragmented mode, all credits to @TheJabiss(jabiss_) and @Noahfrfr69(s1gmafr))")
 
 
 -- Door Change 
