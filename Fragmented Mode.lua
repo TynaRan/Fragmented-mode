@@ -314,11 +314,8 @@ workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFir
 workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFirstChild("Door"):FindFirstChild("Door"):FindFirstChild("Sign").Material = "Slate"
     end
 end)()
-
 -- echo sound
- 
-game.SoundService.AmbientReverb = "ConcertHall"
- 
+--game.SoundService.AmbientReverb = "ConcertHall"
 -- ambient fog and horror sound
  
 -- Get services
@@ -393,7 +390,7 @@ loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/e99a2821f886b253bb65
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker", 500, false)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/cced3f24fa9d4146852441970bf42f9d/raw/7ad70c2ca25409f5936f60e61f06937aed123cef/Hungered()", 350, true)
-loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/cb7cb4ee916c88db981dffa130f17814/raw/7ef67529164c6a0f31a43394892449fad568d4c1/Torment", 600, true)
+loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Torment-Fixed.lua", 600, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/c819c88a3f856e68f257203e7d614d29/raw/af70c3ca7ffe7f1a0c5d826bb45e04b5f58e9e9e/Struggle", 400, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039409f8b62978d/raw/e2a02bee3761cf886303fc7c6d8aeab21cf8b9ba/ReboundMoving", 650, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth", 520, true)
