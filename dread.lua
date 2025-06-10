@@ -12,8 +12,6 @@ local targetCFrame = (
 
 clock:SetPrimaryPartCFrame(targetCFrame)
 
-clock:SetPrimaryPartCFrame(targetCFrame * CFrame.Angles(0, math.rad(130), 0))
-
 wait(5)
 function GitAud(soundgit,filename)
     SoundName=tostring(SoundName)
