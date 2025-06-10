@@ -34,96 +34,139 @@ boolean.Parent = ReplicatedStorage
 
 
 
+-- Stamina System Script
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local Plr = Players.LocalPlayer
-local Char = Plr.Character or Plr.CharacterAdded:Wait()
-local Hum = Char:WaitForChild("Humanoid")
 
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Stamina values
 local maxStamina = 100
-local stamina = maxStamina
-local sprintSpeed = 24
-local normalSpeed = 16
-local drainRate = 20
-local regenRate = 15
-local regenDelay = 1
+local currentStamina = maxStamina
+local staminaDepletionRate = 15 -- per second when running while sprinting
+local staminaRegenRate = 8 -- per second when not sprinting
+local isSprintButtonActive = false
+local isActuallyRunning = false
+local baseWalkSpeed = 16
+local sprintWalkSpeed = 26
 
-local exhausted = false
-local sprinting = false
-local lastSprintTime = 0
+-- Create the UI
+local staminaUI = Instance.new("ScreenGui")
+staminaUI.Name = "StaminaUI"
+staminaUI.Parent = player.PlayerGui
 
+-- Main stamina frame (black border)
+local staminaFrame = Instance.new("Frame")
+staminaFrame.Name = "StaminaFrame"
+staminaFrame.Size = UDim2.new(0.25, 0, 0.02, 0)
+staminaFrame.Position = UDim2.new(0.375, 0, 0.94, 0) -- Middle bottom
+staminaFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Black border
+staminaFrame.BorderSizePixel = 0
+staminaFrame.Parent = staminaUI
 
-local gui = Instance.new("ScreenGui", Plr:WaitForChild("PlayerGui"))
-gui.Name = "SprintUI"
+-- Stamina bar (white fill)
+local staminaBar = Instance.new("Frame")
+staminaBar.Name = "StaminaBar"
+staminaBar.Size = UDim2.new(1, 0, 1, 0)
+staminaBar.Position = UDim2.new(0, 0, 0, 0)
+staminaBar.BackgroundColor3 = Color3.new(1, 1, 1) -- Pure white bar
+staminaBar.BorderSizePixel = 0
+staminaBar.Parent = staminaFrame
 
+-- Sprint button (pure square frame)
+local sprintButton = Instance.new("Frame")
+sprintButton.Name = "SprintButton"
+sprintButton.Size = UDim2.new(0.04, 0, 0.04, 0) -- Perfect square
+sprintButton.Position = UDim2.new(0.94, 0, 0.94, 0) -- Bottom right
+sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3) -- Default gray
+sprintButton.BorderSizePixel = 2
+sprintButton.BorderColor3 = Color3.new(0, 0, 0) -- Black border
+sprintButton.Parent = staminaUI
 
-local sprintButton = Instance.new("TextButton", gui)
-sprintButton.Size = UDim2.new(0.1, 0, 0.2, 0)
-sprintButton.Position = UDim2.new(0.8, 0, 0.8, 0)
-sprintButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-sprintButton.BorderSizePixel = 4
-sprintButton.Text = ""
+-- Update stamina bar visually
+local function updateStaminaBar()
+    staminaBar.Size = UDim2.new(currentStamina/maxStamina, 0, 1, 0)
+end
 
+-- Check if player is moving horizontally
+local function checkIfRunning()
+    if not character:FindFirstChild("HumanoidRootPart") then return false end
+    
+    local velocity = character.HumanoidRootPart.Velocity
+    return (velocity.X ~= 0 or velocity.Z ~= 0) and humanoid.MoveDirection.Magnitude > 0.1
+end
 
-local barBG = Instance.new("Frame", gui)
-barBG.Size = UDim2.new(0.25, 0, 0.035, 0)
-barBG.Position = UDim2.new(0.4, 0, 0.9, 0)
-barBG.BorderSizePixel = 0
+-- Toggle sprint button state
+local function toggleSprint()
+    isSprintButtonActive = not isSprintButtonActive
+    sprintButton.BackgroundColor3 = isSprintButtonActive and Color3.new(0, 0.6, 0) or Color3.new(0.3, 0.3, 0.3)
+    
+    if not isSprintButtonActive then
+        humanoid.WalkSpeed = baseWalkSpeed
+    end
+end
 
+-- Button click event
+sprintButton.MouseButton1Click:Connect(toggleSprint)
 
-
-local bar = Instance.new("Frame", barBG)
-
-bar.BorderSizePixel = 0
-bar.Size = UDim2.new(1, 0, 1, 0)
-bar.BackgroundColor3 = Color3.fromRGB(100, 210, 100)
-
-
-
-
-sprintButton.MouseButton1Down:Connect(function()
-	if not exhausted then
-		sprinting = true
-		Hum.WalkSpeed = sprintSpeed
-	end
+-- Optional keyboard control (Left Shift)
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.LeftShift then
+        toggleSprint()
+    end
 end)
 
-sprintButton.MouseButton1Up:Connect(function()
-	sprinting = false
-	Hum.WalkSpeed = normalSpeed
-	lastSprintTime = tick()
+UserInputService.InputEnded:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.LeftShift then
+        toggleSprint()
+    end
 end)
 
-
-RunService.RenderStepped:Connect(function(dt)
-	if not Hum or not Hum.Parent then return end
-
-	if sprinting and not exhausted then
-		stamina -= drainRate * dt
-		if stamina <= 0 then
-			stamina = 0
-			exhausted = true
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("You're Exhausted.",true)
-			sprinting = false
-			Hum.WalkSpeed = normalSpeed
-			
-			lastSprintTime = tick()
-		end
-	else
-		if tick() - lastSprintTime >= regenDelay and stamina < maxStamina then
-			stamina += regenRate * dt
-			if stamina >= maxStamina then
-				stamina = maxStamina
-				exhausted = false
-			end
-		end
-	end
-
-
-	bar.Size = UDim2.new(stamina / maxStamina, 0, 1, 0)
+-- Main game loop
+RunService.Heartbeat:Connect(function(deltaTime)
+    -- Check if player is actually moving
+    isActuallyRunning = checkIfRunning() and isSprintButtonActive
+    
+    -- Update movement speed
+    if isActuallyRunning and currentStamina > 0 then
+        humanoid.WalkSpeed = sprintWalkSpeed
+    elseif not isSprintButtonActive or currentStamina <= 0 then
+        humanoid.WalkSpeed = baseWalkSpeed
+    end
+    
+    -- Update stamina
+    if isActuallyRunning and currentStamina > 0 then
+        currentStamina = math.max(0, currentStamina - staminaDepletionRate * deltaTime)
+        if currentStamina <= 0 then
+            isSprintButtonActive = false
+            sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+        end
+    else
+        currentStamina = math.min(maxStamina, currentStamina + staminaRegenRate * deltaTime)
+    end
+    
+    updateStaminaBar()
 end)
 
+-- Handle character respawn
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = baseWalkSpeed
+    
+    -- Reset states
+    currentStamina = maxStamina
+    isSprintButtonActive = false
+    isActuallyRunning = false
+    sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+    updateStaminaBar()
+end)
 
+-- Initial setup
+updateStaminaBar()
 
 local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
@@ -386,13 +429,13 @@ end
 
 -- Entities with their URLs and spawn conditions
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/65b34c4d01746bbf74438681d03ac2f3/raw/3549cd1ee3e2cf0b2e67255d6b9dd67cf5e37e94/Dread", 150, true)
-loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(10, 40), false)
+loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(15, 40), false)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker", 500, false)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/cced3f24fa9d4146852441970bf42f9d/raw/7ad70c2ca25409f5936f60e61f06937aed123cef/Hungered()", 350, true)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Torment-Fixed.lua", 600, true)
-loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/c819c88a3f856e68f257203e7d614d29/raw/af70c3ca7ffe7f1a0c5d826bb45e04b5f58e9e9e/Struggle", 400, true)
+--loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/c819c88a3f856e68f257203e7d614d29/raw/af70c3ca7ffe7f1a0c5d826bb45e04b5f58e9e9e/Struggle", 400, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039409f8b62978d/raw/e2a02bee3761cf886303fc7c6d8aeab21cf8b9ba/ReboundMoving", 650, true)
-loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth", 520, true)
+--loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth", 520, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/d4a36b88bac6255cba8a5c8e1d42b7ee/raw/da56bc3421169802433f78fcaf1a847f7abae7ca/Daunt", 650, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/0e7b8feb107078b860e18b1da9185fea/raw/f1293ec866f8fb6f1ade92a5ca5f978d30037a20/Disturbance", 280, true)
