@@ -55,24 +55,13 @@ local entity = spawner.Create({
 
 
 entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
-function GitAud(soundgit,filename)
-    SoundName=tostring(SoundName)
-    local url=soundgit
-    local FileName = filename
-    writefile(FileName..".mp3", game:HttpGet(url))
-    return (getcustomasset or getsynasset)(FileName..".mp3")
-end
-
-function CustomGitSound(soundlink, vol, filename)
-    local Sound = Instance.new("Sound")
-    Sound.SoundId = GitAud(soundlink, filename)
-    Sound.Parent = workspace
-    Sound.Volume = vol
-    Sound:Play()
-end
-
-CustomGitSound("https://github.com/Kotyara19k-Doorsspawner/Random-files/raw/refs/heads/main/Y2meta.app%20-%20Doors%20Fragmented%20Mode%20v4_%20Hunger%20Spawned%20Warn%20(256%20kbps).mp3", 1, "ImHungry")
+    local cue2 = Instance.new("Sound")
+    cue2.Parent = game.Workspace
+    cue2.Name = "Spawn"
+    cue2.SoundId = "rbxassetid://9125712561"
+    cue2.Volume = 9999
+    cue2.PlaybackSpeed = 1
+    cue2:Play()
 end)
 
 entity:SetCallback("OnStartMoving", function()
