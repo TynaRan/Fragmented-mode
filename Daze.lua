@@ -17,11 +17,10 @@ entity.PrimaryPart.Anchored = true
 local horrorScream = entity:WaitForChild("OOGA BOOGAAAA"):WaitForChild("jumpscare")
 game.workspace.Daze.PlaySound:Destroy()
 
-
 local function damageblud()
     local hum = chr:FindFirstChild("Humanoid")
     if hum then
-        local dmg = 30
+        local dmg = 10
         hum:TakeDamage(dmg)
     end
 end
@@ -43,8 +42,7 @@ entity.PrimaryPart.Anchored = false
 wait(4)
 
 if check() then
-firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Daze...", "Don't Look At Him And He Wouldn't Damage You!"}, "Blue")
-
+    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"You died to who you call Daze...", "Don't Look At Him And He Wouldn't Damage You!"}, "Blue")
     move(chr.HumanoidRootPart.CFrame, 0.5)
     damageblud()
     horrorScream:Play()
@@ -53,16 +51,22 @@ end
 entity.PrimaryPart.Anchored = false
 entity.PrimaryPart.CanCollide = false
 
-
-local YouStupidNigger= loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
-
-
-YouStupidNigger({
-    Title = "Stay Tuned",
-    Desc = "Wake Up!",
-    Reason = "Encounter Daze.",
-    Image = "rbxassetid://123892760857811"
-})
+-- Check if the achievement should be granted
+if not workspace:FindFirstChild("get") then
+    local YouStupidNigger = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+    
+    YouStupidNigger({
+        Title = "Stay Tuned",
+        Desc = "Wake Up!",
+        Reason = "Encounter Daze.",
+        Image = "rbxassetid://123892760857811"
+    })
+    
+    -- Create the marker to prevent duplicate achievements
+    local marker = Instance.new("BoolValue")
+    marker.Name = "get"
+    marker.Parent = workspace
+end
 
 wait(1)
 entity:Destroy()
