@@ -11,29 +11,6 @@ local boolean = Instance.new("BoolValue")
 boolean.Name = "Fragments"
 boolean.Parent = ReplicatedStorage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- Stamina System Script
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -51,7 +28,7 @@ local staminaRegenRate = 8 -- per second when not sprinting
 local isSprintButtonActive = false
 local isActuallyRunning = false
 local baseWalkSpeed = 16
-local sprintWalkSpeed = 26
+local sprintWalkSpeed = 21.5
 
 -- Create the UI
 local staminaUI = Instance.new("ScreenGui")
@@ -77,13 +54,14 @@ staminaBar.BorderSizePixel = 0
 staminaBar.Parent = staminaFrame
 
 -- Sprint button (pure square frame)
-local sprintButton = Instance.new("Frame")
+local sprintButton = Instance.new("TextButton") -- Changed from Frame to TextButton
 sprintButton.Name = "SprintButton"
-sprintButton.Size = UDim2.new(0.04, 0, 0.04, 0) -- Perfect square
-sprintButton.Position = UDim2.new(0.94, 0, 0.94, 0) -- Bottom right
+sprintButton.Size = UDim2.new(0.3, 0, 0.3, 0) -- Perfect square
+sprintButton.Position = UDim2.new(0.9, 0, 0.9, 0) -- Bottom right
 sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3) -- Default gray
 sprintButton.BorderSizePixel = 2
 sprintButton.BorderColor3 = Color3.new(0, 0, 0) -- Black border
+sprintButton.Text = "" -- No text
 sprintButton.Parent = staminaUI
 
 -- Update stamina bar visually
@@ -109,7 +87,7 @@ local function toggleSprint()
     end
 end
 
--- Button click event
+-- Button click event (now works because it's a TextButton)
 sprintButton.MouseButton1Click:Connect(toggleSprint)
 
 -- Optional keyboard control (Left Shift)
@@ -167,6 +145,7 @@ end)
 
 -- Initial setup
 updateStaminaBar()
+
 
 local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
