@@ -272,7 +272,7 @@ jumpscare(
     },
     true 
 )
-replicatesignal(game.Players.LocalPlayer.Kill)
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
 
 end)
 
