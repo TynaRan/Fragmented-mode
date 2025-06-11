@@ -11,7 +11,6 @@ local boolean = Instance.new("BoolValue")
 boolean.Name = "Fragments"
 boolean.Parent = ReplicatedStorage
 
--- Stamina System Script
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -20,77 +19,64 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
--- Stamina values
+-- Settings
 local maxStamina = 100
 local currentStamina = maxStamina
-local staminaDepletionRate = 15 -- per second when running while sprinting
-local staminaRegenRate = 8 -- per second when not sprinting
-local isSprintButtonActive = false
-local isActuallyRunning = false
-local baseWalkSpeed = 16
-local sprintWalkSpeed = 21.5
+local staminaDepletionRate = 15  -- Stamina lost per second while sprinting
+local staminaRegenRate = 8       -- Stamina regained per second when not sprinting
+local sprintSpeedBonus = 10      -- Extra speed when sprinting
 
--- Create the UI
+-- State variables
+local isSprinting = false
+local naturalWalkSpeed = humanoid.WalkSpeed  -- Tracks the "default" speed (can change due to external forces)
+local lastUpdateTime = os.clock()
+
+-- UI Setup (same as before)
 local staminaUI = Instance.new("ScreenGui")
 staminaUI.Name = "StaminaUI"
 staminaUI.Parent = player.PlayerGui
 
--- Main stamina frame (black border)
 local staminaFrame = Instance.new("Frame")
-staminaFrame.Name = "StaminaFrame"
 staminaFrame.Size = UDim2.new(0.25, 0, 0.02, 0)
-staminaFrame.Position = UDim2.new(0.375, 0, 0.94, 0) -- Middle bottom
-staminaFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Black border
+staminaFrame.Position = UDim2.new(0.375, 0, 0.94, 0)
+staminaFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 staminaFrame.BorderSizePixel = 0
-staminaFrame.Parent = staminaUI
 
--- Stamina bar (white fill)
 local staminaBar = Instance.new("Frame")
-staminaBar.Name = "StaminaBar"
 staminaBar.Size = UDim2.new(1, 0, 1, 0)
-staminaBar.Position = UDim2.new(0, 0, 0, 0)
-staminaBar.BackgroundColor3 = Color3.new(1, 1, 1) -- Pure white bar
+staminaBar.BackgroundColor3 = Color3.new(1, 1, 1)
 staminaBar.BorderSizePixel = 0
 staminaBar.Parent = staminaFrame
+staminaFrame.Parent = staminaUI
 
--- Sprint button (pure square frame)
-local sprintButton = Instance.new("TextButton") -- Changed from Frame to TextButton
-sprintButton.Name = "SprintButton"
-sprintButton.Size = UDim2.new(0.3, 0, 0.3, 0) -- Perfect square
-sprintButton.Position = UDim2.new(0.9, 0, 0.9, 0) -- Bottom right
-sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3) -- Default gray
+local sprintButton = Instance.new("TextButton")
+sprintButton.Size = UDim2.new(0.4, 0, 0.4, 0)
+sprintButton.Position = UDim2.new(0.875, 0, 0.8, 0)
+sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
 sprintButton.BorderSizePixel = 2
-sprintButton.BorderColor3 = Color3.new(0, 0, 0) -- Black border
-sprintButton.Text = "" -- No text
+sprintButton.BorderColor3 = Color3.new(0, 0, 0)
+sprintButton.Text = ""
 sprintButton.Parent = staminaUI
 
--- Update stamina bar visually
+-- Update stamina bar
 local function updateStaminaBar()
-    staminaBar.Size = UDim2.new(currentStamina/maxStamina, 0, 1, 0)
+    staminaBar.Size = UDim2.new(currentStamina / maxStamina, 0, 1, 0)
 end
 
--- Check if player is moving horizontally
-local function checkIfRunning()
-    if not character:FindFirstChild("HumanoidRootPart") then return false end
-    
-    local velocity = character.HumanoidRootPart.Velocity
-    return (velocity.X ~= 0 or velocity.Z ~= 0) and humanoid.MoveDirection.Magnitude > 0.1
-end
-
--- Toggle sprint button state
+-- Toggle sprint
 local function toggleSprint()
-    isSprintButtonActive = not isSprintButtonActive
-    sprintButton.BackgroundColor3 = isSprintButtonActive and Color3.new(0, 0.6, 0) or Color3.new(0.3, 0.3, 0.3)
+    isSprinting = not isSprinting
+    sprintButton.BackgroundColor3 = isSprinting and Color3.new(0, 0.6, 0) or Color3.new(0.3, 0.3, 0.3)
     
-    if not isSprintButtonActive then
-        humanoid.WalkSpeed = baseWalkSpeed
+    -- On sprint end, revert to natural speed (which may have been modified externally)
+    if not isSprinting then
+        humanoid.WalkSpeed = naturalWalkSpeed
     end
 end
 
--- Button click event (now works because it's a TextButton)
+-- Button & keyboard controls
 sprintButton.MouseButton1Click:Connect(toggleSprint)
 
--- Optional keyboard control (Left Shift)
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed and input.KeyCode == Enum.KeyCode.LeftShift then
         toggleSprint()
@@ -103,48 +89,56 @@ UserInputService.InputEnded:Connect(function(input, gameProcessed)
     end
 end)
 
--- Main game loop
-RunService.Heartbeat:Connect(function(deltaTime)
-    -- Check if player is actually moving
-    isActuallyRunning = checkIfRunning() and isSprintButtonActive
-    
-    -- Update movement speed
-    if isActuallyRunning and currentStamina > 0 then
-        humanoid.WalkSpeed = sprintWalkSpeed
-    elseif not isSprintButtonActive or currentStamina <= 0 then
-        humanoid.WalkSpeed = baseWalkSpeed
+-- Main logic
+RunService.Heartbeat:Connect(function()
+    local now = os.clock()
+    local deltaTime = now - lastUpdateTime
+    lastUpdateTime = now
+
+    -- Update natural speed if not sprinting (to adapt to external changes)
+    if not isSprinting then
+        naturalWalkSpeed = humanoid.WalkSpeed
     end
-    
-    -- Update stamina
-    if isActuallyRunning and currentStamina > 0 then
+
+    -- Check if player is actively moving
+    local isMoving = humanoid.MoveDirection.Magnitude > 0.1
+
+    -- Handle sprinting logic
+    if isSprinting and isMoving and currentStamina > 0 then
+        -- Apply sprint bonus on top of natural speed
+        humanoid.WalkSpeed = naturalWalkSpeed + sprintSpeedBonus
         currentStamina = math.max(0, currentStamina - staminaDepletionRate * deltaTime)
+
+        -- Auto-disable sprint if stamina runs out
         if currentStamina <= 0 then
-            isSprintButtonActive = false
+            isSprinting = false
             sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+            humanoid.WalkSpeed = naturalWalkSpeed
         end
     else
+        -- Regenerate stamina when not sprinting
         currentStamina = math.min(maxStamina, currentStamina + staminaRegenRate * deltaTime)
     end
-    
+
     updateStaminaBar()
 end)
 
--- Handle character respawn
+-- Reset on respawn
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
     humanoid = character:WaitForChild("Humanoid")
-    humanoid.WalkSpeed = baseWalkSpeed
-    
-    -- Reset states
+    naturalWalkSpeed = humanoid.WalkSpeed  -- Reset to new character's default
     currentStamina = maxStamina
-    isSprintButtonActive = false
-    isActuallyRunning = false
+    isSprinting = false
     sprintButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
     updateStaminaBar()
 end)
 
 -- Initial setup
+naturalWalkSpeed = humanoid.WalkSpeed  -- Initialize with current speed
 updateStaminaBar()
+
+
 
 
 local TextChatService = game:GetService("TextChatService")
