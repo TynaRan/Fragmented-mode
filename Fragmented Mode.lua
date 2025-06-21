@@ -224,7 +224,7 @@ Have fun and thank you for playing!
 local gui = Instance.new("ScreenGui")
 gui.Parent = game.Players.LocalPlayer.PlayerGui
 gui.Enabled = true
-gui.Name = "delete this"
+gui.Name = "Info"
 
 local click = Instance.new("Sound")
 click.SoundId = "rbxassetid://6042053626"
@@ -318,10 +318,12 @@ end)()
 function Chat(args)
 	game:GetService("TextChatService").TextChannels.RBXSystem:DisplaySystemMessage(args);
 end
-Chat("Fragmented Mode V4 Loaded! (Note: This is NOT official version of the fragmented mode, all credits to @TheJabiss(jabiss_) and @Noahfrfr69(s1gmafr))")
+Chat("Fragmented Mode V4 Loaded.")
+Chat("if you play this He is very hard")
+Chat("Dread has bugs. I'm sorry :(")
 
 
--- Door Change 
+-- Door Change
 coroutine.wrap(function()
     while true do
         wait(0.0005)
@@ -338,20 +340,8 @@ end)()
 local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
 local SoundService = game:GetService("SoundService")
- 
 
-local fakeLighting = {
-    FogColor = Color3.fromRGB(10, 10, 30),
-    FogStart = 0,
-    FogEnd = 30,
-    Ambient = Color3.fromRGB(20, 20, 20),
-    Brightness = 2
-}
 
--- like I think ChatGpt helped me here bc im the fuckin skid 
-for prop, value in pairs(fakeLighting) do
-    game.Lighting[prop] = value
-end
 
 local sfx = Instance.new("Sound")
 sfx.SoundId = "rbxassetid://9113731836"
@@ -412,3 +402,194 @@ loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039
 --loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth", 520, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/d4a36b88bac6255cba8a5c8e1d42b7ee/raw/da56bc3421169802433f78fcaf1a847f7abae7ca/Daunt", 650, true)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Disturbance.lua", 280, true)
+local function loadHallucination()
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://9113335392"
+sound.PlaybackSpeed = 0.875
+sound.Volume = 3
+sound.Parent = workspace
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "CGui"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Name = "CenterImage"
+imageLabel.Image = "rbxassetid://18147873567"
+imageLabel.BackgroundTransparency = 1
+imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+imageLabel.Size = UDim2.new(0, 250, 0, 250)
+imageLabel.ImageTransparency = 1
+imageLabel.Parent = gui
+
+local instructionLabel = Instance.new("TextLabel")
+instructionLabel.Name = "Instruction"
+instructionLabel.Text = ""
+instructionLabel.TextSize = 24
+instructionLabel.TextColor3 = Color3.new(0, 0.5, 1)
+instructionLabel.Font = Enum.Font.Jura
+instructionLabel.BackgroundTransparency = 1
+instructionLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+instructionLabel.Position = UDim2.new(0.5, 0, 0.65, 0)
+instructionLabel.Size = UDim2.new(0, 200, 0, 50)
+instructionLabel.Visible = false
+instructionLabel.Parent = gui
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local function fadeObject(obj, duration, startTrans, endTrans)
+local startTime = tick()
+while tick() - startTime < duration do
+local progress = (tick() - startTime)/duration
+local transparency = startTrans + (endTrans - startTrans)*progress
+if obj:IsA("ImageLabel") then
+obj.ImageTransparency = transparency
+elseif obj:IsA("TextLabel") then
+obj.TextTransparency = transparency
+obj.TextStrokeTransparency = transparency
+end
+task.wait()
+end
+end
+
+local function checkPlayerAction(requiredAction)
+local failed = false
+local connection
+local startTime = tick()
+local duration = 2
+
+connection = humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+local moveDir = humanoid.MoveDirection
+local isMoving = moveDir.Magnitude > 0
+
+if requiredAction == "Move" then
+if isMoving then failed = false end
+elseif requiredAction == "Don't move" then
+if isMoving then failed = true end
+end
+end)
+
+while tick() - startTime < duration do task.wait() end
+connection:Disconnect()
+
+if requiredAction == "Move" and humanoid.MoveDirection.Magnitude == 0 then
+failed = true
+end
+
+if failed then
+humanoid.Health = 0
+return false
+end
+return true
+end
+
+local function runSequence()
+fadeObject(imageLabel, 13, 1, 0)
+
+local instructions = {"Move", "Don't move"}
+local survived = true
+local startTime = tick()
+local challengeDuration = 10
+
+while tick() - startTime < challengeDuration and survived do
+local instruction = instructions[math.random(2)]
+instructionLabel.Text = instruction
+instructionLabel.TextTransparency = 0
+instructionLabel.Visible = true
+
+survived = checkPlayerAction(instruction)
+
+if not survived then
+firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"hallucination...", "wow"}, "Blue")
+break
+end
+
+fadeObject(instructionLabel, 0.5, 0, 1)
+instructionLabel.Visible = false
+task.wait(0.5)
+end
+
+if survived then
+if not player:FindFirstChild("HallucinationAchievement") then
+local achievementTracker = Instance.new("BoolValue")
+achievementTracker.Name = "HallucinationAchievement"
+achievementTracker.Parent = player
+
+local success, achievement = pcall(function()
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+end)
+
+if success then
+achievement({
+Title = "Insanity hallucination",
+Desc = "H0l_ m0 I'0 dy00g",
+Reason = "Encounter Reverse hallucination",
+Image = "rbxassetid://18147873567"
+})
+end
+end
+
+fadeObject(imageLabel, 1, 0, 1)
+fadeObject(instructionLabel, 1, 0, 1)
+task.wait(1)
+end
+
+gui:Destroy()
+sound:Destroy()
+end
+
+sound.Loaded:Connect(function()
+sound:Play()
+runSequence()
+end)
+
+if not sound.IsLoaded then
+sound.Loaded:Wait()
+end
+end
+
+local function checkRoom()
+if game.ReplicatedStorage.GameData.LatestRoom.Value == 63 then
+loadHallucination()
+else
+local connection
+connection = game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+if game.ReplicatedStorage.GameData.LatestRoom.Value == 63 then
+connection:Disconnect()
+loadHallucination()
+end
+end)
+end
+end
+
+checkRoom()
+local function handleInfoGui()
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local infoGui = playerGui:FindFirstChild("Info")
+
+if infoGui then
+local mainFrame = infoGui:FindFirstChild("MainFrame") or infoGui:FindFirstChildOfClass("Frame") or infoGui
+
+local startPos = mainFrame.Position
+local endPos = UDim2.new(1, mainFrame.AbsoluteSize.X, startPos.Y.Scale, startPos.Y.Offset)
+
+local slideDuration = 2
+local startTime = tick()
+
+while tick() - startTime < slideDuration do
+local progress = (tick() - startTime) / slideDuration
+mainFrame.Position = startPos:Lerp(endPos, progress)
+task.wait()
+end
+
+infoGui:Destroy()
+end
+end
+
+-- Wait 5 seconds then execute
+task.delay(5, handleInfoGui)
