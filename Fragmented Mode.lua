@@ -370,6 +370,7 @@ local function loadEntity(url, delay, checkRoomChange)
         end
     end)()
 end
+local p = game:GetService("Players").LocalPlayer
 local c=p.Character or p.CharacterAdded:Wait()
 local function SetDeathCause(cause, messages, color)
     local player = game:GetService("Players").LocalPlayer
