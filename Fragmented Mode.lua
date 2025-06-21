@@ -319,11 +319,7 @@ function Chat(args)
 	game:GetService("TextChatService").TextChannels.RBXSystem:DisplaySystemMessage(args);
 end
 Chat("Fragmented Mode V4 Loaded.")
-Chat("if you play this He is very hard")
-Chat("Dread has bugs. I'm sorry :(")
-
-
--- Door Change
+--[[ Door Change
 coroutine.wrap(function()
     while true do
         wait(0.0005)
@@ -332,40 +328,25 @@ workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFir
 workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:FindFirstChild("Door"):FindFirstChild("Door"):FindFirstChild("Sign").Material = "Slate"
     end
 end)()
--- echo sound
---game.SoundService.AmbientReverb = "ConcertHall"
--- ambient fog and horror sound
- 
--- Get services
+--]]
 local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
 local SoundService = game:GetService("SoundService")
-
-
-
 local sfx = Instance.new("Sound")
 sfx.SoundId = "rbxassetid://9113731836"
 sfx.Volume = 2
 sfx.Looped = true
 sfx.Parent = workspace
 sfx:Play()
-
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made by the Jabiss, Don't share this script on any app, link, site, or server",true)
-
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
-
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made By The Jabiss (jabiss_).",true)
 wait(3)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Credits to Vynixus, Noah, ThatOneRubenGuy(Thanks you so much), and people who made the models",true)
 loadstring(game:HttpGet('https://pastefy.app/LXPjhzXK/raw'))()
-
-
-
 game.ReplicatedStorage.Sounds.BulbCharge.SoundId = "rbxassetid://9125973034"
 game.ReplicatedStorage.Sounds.BulbZap.SoundId = "rbxassetid://4288784832"
 game.ReplicatedStorage.Sounds.BulbBreak.SoundId = "rbxassetid://6737582273"
-
- 
 local function loadEntity(url, delay, checkRoomChange)
     coroutine.wrap(function()
         while true do
@@ -391,9 +372,9 @@ local function loadEntity(url, delay, checkRoomChange)
 end
 
 -- Entities with their URLs and spawn conditions
-loadEntity("https://github.com/TynaRan/Fragmented-mode/blob/main/dread.lua", 150, true)
+loadEntity("https://github.com/TynaRan/Fragmented-mode/blob/main/dread.lua?raw=true", 150, true)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(15, 40), false)
-loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
+--loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker", 500, false)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/hungerd.lua", 350, true)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Torment-Fixed.lua", 600, true)
@@ -402,6 +383,60 @@ loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/f11740c3038d1a1a1039
 --loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/8350756c7afc7b87cc6f534f07fbdf08/raw/e8396030645c84248e57e325cad518bbf5f4f050/Depth", 520, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/d4a36b88bac6255cba8a5c8e1d42b7ee/raw/da56bc3421169802433f78fcaf1a847f7abae7ca/Daunt", 650, true)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Disturbance.lua", 280, true)
+local p, rs, r = game:GetService("Players"), game:GetService("RunService"), game:GetService("ReplicatedStorage")
+
+local p, rs, r = game:GetService("Players"), game:GetService("RunService"), game:GetService("ReplicatedStorage")
+local ts = game:GetService("TweenService")
+
+coroutine.wrap(function()
+while true do
+wait(250)
+r.GameData.LatestRoom.Changed:Wait()
+local rm = r.GameData.LatestRoom.Value
+local ok = true
+for _, o in ipairs(workspace:GetChildren()) do
+if o.Name:find("SeekMovingNewClone") then ok = false break end
+end
+if rm == 50 or rm == 100 or not ok then continue end
+local m = game:GetObjects("rbxassetid://14315263201")[1]
+m.Parent = workspace
+local ent = m.EightSeven
+local room = workspace.CurrentRooms[rm]
+local node = #room.Nodes:GetChildren()
+local pos = (node == 0 and room.Base or room.Nodes[math.floor(node/2)]).CFrame + Vector3.new(0,5,0)
+ent.CFrame = pos + Vector3.new(0, 15, 0)
+ent.Playsound:Play()
+for _, v in ipairs(m:GetDescendants()) do
+if v:IsA("BasePart") then v.CanCollide = false end
+end
+
+local on = false
+local down = ts:Create(ent, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = pos})
+down:Play()
+
+down.Completed:Connect(function()
+on = true
+task.delay(2, function()
+if m and m.Parent then m:Destroy() end
+end)
+end)
+
+r.GameData.LatestRoom.Changed:Connect(function() on = false if m then m:Destroy() end end)
+m.Destroying:Connect(function() on = false end)
+
+rs.Heartbeat:Connect(function()
+if not on then return end
+for _, plr in ipairs(p:GetPlayers()) do
+local c = plr.Character
+local hrp = c and c:FindFirstChild("HumanoidRootPart")
+local h = c and c:FindFirstChild("Humanoid")
+if hrp and h and h.Health > 0 and (hrp.Position - ent.Position).Magnitude <= 5 then
+h.Health -= 1
+end
+end
+end)
+end
+end)()
 local function loadHallucination()
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://9113335392"
