@@ -370,10 +370,14 @@ local function loadEntity(url, delay, checkRoomChange)
         end
     end)()
 end
-
--- Entities with their URLs and spawn conditions
+local c=p.Character or p.CharacterAdded:Wait()
+local function SetDeathCause(cause, messages, color)
+    local player = game:GetService("Players").LocalPlayer
+    game:GetService("ReplicatedStorage").GameStats["Player_"..player.Name].Total.DeathCause.Value = cause
+    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, messages, color)
+end
 loadEntity("https://github.com/TynaRan/Fragmented-mode/blob/main/dread.lua?raw=true", 150, true)
-loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(15, 40), false)
+--loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/Daze.lua", math.random(15, 40), false)
 --loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/6c571d1af1fe3892eb2427a46193bf56/raw/b0508ee42958e1ee4312ea842456a8a1f6bb058f/Fluster", 250, true)
 loadEntity("https://gist.github.com/Kotyara19k-Doorsspawner/aa182cc52ceb581c7aaecf995898f4d1/raw/5112f4b495dc263472e7108cb232ae70ba62cea9/Revoker", 500, false)
 loadEntity("https://raw.githubusercontent.com/TynaRan/Fragmented-mode/refs/heads/main/hungerd.lua", 350, true)
@@ -423,7 +427,9 @@ end)
 
 r.GameData.LatestRoom.Changed:Connect(function() on = false if m then m:Destroy() end end)
 m.Destroying:Connect(function() on = false end)
-
+c:WaitForChild("Humanoid").Died:Connect(function()
+SetDeathCause("Fluster", {"You died of Fluster", "Stay away from him!"}, "Blue")
+end)
 rs.Heartbeat:Connect(function()
 if not on then return end
 for _, plr in ipairs(p:GetPlayers()) do
@@ -437,6 +443,83 @@ end
 end)
 end
 end)()
+
+coroutine.wrap(function()
+local p=game.Players.LocalPlayer
+local c=p.Character or p.CharacterAdded:Wait()
+while true do
+wait(math.random(5,45))
+local latestRoom=game.ReplicatedStorage.GameData.LatestRoom.Value
+local seekMovingExists=false
+for _,obj in ipairs(game.Workspace:GetChildren())do
+if string.find(obj.Name,"SeekMovingNewClone")then
+seekMovingExists=true
+break
+end
+end
+
+if not(latestRoom==50 or latestRoom==100 or seekMovingExists)then
+local e=game:GetObjects("rbxassetid://14123016442")[1]
+e.Parent=workspace
+for _,v in pairs(e:GetDescendants())do if v:IsA("BasePart")then v.CanCollide=false v.Anchored=true end end
+local pp=e:FindFirstChild("Body")or e:FindFirstChildWhichIsA("BasePart")or error()
+e.PrimaryPart=pp
+pp.CFrame=c.HumanoidRootPart.CFrame*CFrame.new(0,0,-7.5)
+firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent,{"You died to who you call Daze...","Don't Look At Him And He Wouldn't Damage You!"},"Blue")
+local g=Instance.new("BoolValue",workspace)
+g.Name="get"
+local triggered=false
+c:WaitForChild("Humanoid").Died:Connect(function()
+game:GetService("ReplicatedStorage").GameStats["Player_"..p.Name].Total.DeathCause.Value="Daze"
+end)
+local function f()
+if not g.Value then
+g.Value=true
+for _,v in pairs(e:GetDescendants())do if v:IsA("BasePart")then v.Anchored=false end end
+local bv=Instance.new("BodyVelocity")
+bv.Velocity=Vector3.new(0,-25,0)
+bv.MaxForce=Vector3.new(0,9e9,0)
+bv.Parent=pp
+loadstring(game:HttpGet"https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua")()({
+Title="Stay Tuned",Desc="Wake Up!",Reason="Encounter Daze.",Image="rbxassetid://123892760857811"
+})
+end
+wait(1)
+e:Destroy()
+end
+local t=0
+for _=1,40 do
+if not triggered and(pp.Position-workspace.CurrentCamera.CFrame.Position).Unit:Dot(workspace.CurrentCamera.CFrame.LookVector)>0.5 then
+t=t+0.1
+if t>=2.5 then
+for _,v in pairs(e:GetDescendants())do if v:IsA("BasePart")then v.Anchored=false end end
+local moveTime=0.5
+local startTime=tick()
+local startPos=pp.Position
+local endPos=c.HumanoidRootPart.Position
+while tick()-startTime<moveTime do
+local alpha=(tick()-startTime)/moveTime
+pp.Position=startPos:Lerp(endPos,alpha)
+wait()
+end
+e["OOGA BOOGAAAA"].jumpscare:Play()
+c.Humanoid:TakeDamage(10)
+triggered=true
+wait(0.5)
+local bv=Instance.new("BodyVelocity")
+bv.Velocity=Vector3.new(0,-25,0)
+bv.MaxForce=Vector3.new(0,9e9,0)
+bv.Parent=pp
+wait(1.25)
+e:Destroy()
+end
+end
+wait(0.1)
+end
+if not triggered then f()end
+end
+end
+end)()
 local function loadHallucination()
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://9113335392"
@@ -445,7 +528,7 @@ sound.Volume = 3
 sound.Parent = workspace
 
 local gui = Instance.new("ScreenGui")
-gui.Name = "CGui"
+gui.Name = "jredkvtjtjgvtjktkgttc"
 gui.ResetOnSpawn = false
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -540,7 +623,9 @@ instructionLabel.Visible = true
 survived = checkPlayerAction(instruction)
 
 if not survived then
-firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, {"hallucination...", "wow"}, "Blue")
+c:WaitForChild("Humanoid").Died:Connect(function()
+SetDeathCause("Reverse hallucination", {"You died of Reverse hallucination", "You must listen to him, or you will die."}, "Blue")
+end)
 break
 end
 
@@ -562,7 +647,7 @@ end)
 if success then
 achievement({
 Title = "Insanity hallucination",
-Desc = "H0l_ m0 I'0 dy00g",
+Desc = "Hide.....",
 Reason = "Encounter Reverse hallucination",
 Image = "rbxassetid://18147873567"
 })
