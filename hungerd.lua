@@ -58,31 +58,7 @@ Cause = ""
 }
 })
 
-local function CheckLookAt()
-    while task.wait(0.1) do
-        if entity and entity.Instance then
-            local camera = workspace.CurrentCamera
-            local character = game.Players.LocalPlayer.Character
-            if character and character:FindFirstChild("Head") then
-                local head = character.Head
-                local rayOrigin = camera.CFrame.Position
-                local rayDirection = (head.Position - rayOrigin).Unit * 100
-                local raycastParams = RaycastParams.new()
-                raycastParams.FilterDescendantsInstances = {character, workspace.CurrentCamera}
-                raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
-                
-                if raycastResult and raycastResult.Instance:IsDescendantOf(entity.Instance) then
-                    local humanoid = character:FindFirstChildOfClass("Humanoid")
-                    if humanoid then
-                        humanoid.Health = 0
-                        SetDeathCause("Hungered", {"You shouldn't have looked...", "Its eyes consume souls"}, "Blue")
-                    end
-                end
-            end
-        end
-    end
-end
+
 
 entity:SetCallback("OnSpawned", function()
     local cue2 = Instance.new("Sound")
@@ -94,31 +70,33 @@ entity:SetCallback("OnSpawned", function()
     cue2:Play()
     --CheckLookAt()
 end)
-
+--[[
 entity:SetCallback("OnStartMoving", function()
-CheckLookAt()
 end)
 
 entity:SetCallback("OnEnterRoom", function(room, firstTime)
 if firstTime == true then
 else
-end
-end)
+--end
+--end)
+--]]
 
-entity:SetCallback("OnLookAt", function(lineOfSight)
-if lineOfSight == true then
-else
-end
-end)
+--entity:SetCallback("OnLookAt", function(lineOfSight)
+--if lineOfSight == true then
+--game.Players.LocalPlayer.Character.Humanoid.Health = 0            
+--else
+--game.Players.LocalPlayer.Character.Humanoid.Health = 0            
+--end
+--end)
 
-entity:SetCallback("OnRebounding", function(startOfRebound)
-if startOfRebound == true then
-else
-end
-end)
+--entity:SetCallback("OnRebounding", function(startOfRebound)
+--if startOfRebound == true then
+--else
+--end
+--end)
 
-entity:SetCallback("OnDespawning", function()
-end)
+--entity:SetCallback("OnDespawning", function()
+--end)
 
 entity:SetCallback("OnDespawned", function()
 local success, achievement = pcall(function()
