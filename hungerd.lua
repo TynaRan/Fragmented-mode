@@ -97,7 +97,18 @@ entity:SetCallback("OnDespawning", function()
 end)
 
 entity:SetCallback("OnDespawned", function()
-    --print("Entity has despawned")
+local success, achievement = pcall(function()
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+end)
+
+if success then
+achievement({
+Title = "Give me you Soul",
+Desc = "̷͙͍͛I w̸̘̓͝a̴̹̾n̵̛̼t̶̢͠ ̴̮̓e̶͙̋a̷̧̕t̴̺͒ ̵̘͝y̸̼͗o̵̗̊u̷̩̒",
+Reason = "Encounter Hungerd",
+Image = "rbxassetid://127887967230160"
+})
+end
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
