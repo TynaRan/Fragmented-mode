@@ -1,58 +1,88 @@
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
+local function SetDeathCause(cause, messages, color)
+    local player = game:GetService("Players").LocalPlayer
+    game:GetService("ReplicatedStorage").GameStats["Player_"..player.Name].Total.DeathCause.Value = cause
+    firesignal(game.ReplicatedStorage.RemotesFolder.DeathHint.OnClientEvent, messages, color)
+end
+
 local entity = spawner.Create({
-	Entity = {
-		Name = "Hungered",
-		Asset = "https://github.com/ThatOneGuyRuben/Stuff/blob/main/FG/HungerMDL.rbxm?raw=true",
-		HeightOffset = 1
-	},
-	Lights = {
-		Flicker = {
-			Enabled = false,
-			Duration = 1
-		},
-		Shatter = true,
-		Repair = false
-	},
-	Earthquake = {
-		Enabled = false
-	},
-	CameraShake = {
-		Enabled = false,
-		Range = 100,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-	},
-	Movement = {
-		Speed = 500,
-		Delay = 11,
-		Reversed = false
-	},
-	Rebounding = {
-		Enabled = true,
-		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 3,
-		Delay = 1
-	},
-	Damage = {
-		Enabled = true,
-		Range = 80,
-		Amount = 125
-	},
-	Crucifixion = {
-		Enabled = true,
-		Range = 40,
-		Resist = false,
-		Break = true
-	},
-	Death = {
-		Type = "Guiding", -- "Curious"
-		Hints = {"You Died to who you call..", "Dread!", "First his watch appears, Then he appears too!", "LMFAO STUPID NIGGA"},
-		Cause = ""
-	}
+Entity = {
+Name = "Hungered",
+Asset = "https://github.com/ThatOneGuyRuben/Stuff/blob/main/FG/HungerMDL.rbxm?raw=true",
+HeightOffset = 1
+},
+Lights = {
+Flicker = {
+Enabled = false,
+Duration = 1
+},
+Shatter = true,
+Repair = false
+},
+Earthquake = {
+Enabled = false
+},
+CameraShake = {
+Enabled = false,
+Range = 100,
+Values = {1.5, 20, 0.1, 1}
+},
+Movement = {
+Speed = 500,
+Delay = 11,
+Reversed = false
+},
+Rebounding = {
+Enabled = true,
+Type = "Ambush",
+Min = 1,
+Max = 3,
+Delay = 1
+},
+Damage = {
+Enabled = true,
+Range = 80,
+Amount = 125
+},
+Crucifixion = {
+Enabled = true,
+Range = 40,
+Resist = false,
+Break = true
+},
+Death = {
+Type = "Guiding",
+Hints = {"You Died to who you call..", "Dread!", "First his watch appears, Then he appears too!", "LMFAO STUPID NIGGA"},
+Cause = ""
+}
 })
 
-
+local function CheckLookAt()
+    while task.wait(0.1) do
+        if entity and entity.Instance then
+            local camera = workspace.CurrentCamera
+            local character = game.Players.LocalPlayer.Character
+            if character and character:FindFirstChild("Head") then
+                local head = character.Head
+                local rayOrigin = camera.CFrame.Position
+                local rayDirection = (head.Position - rayOrigin).Unit * 100
+                local raycastParams = RaycastParams.new()
+                raycastParams.FilterDescendantsInstances = {character, workspace.CurrentCamera}
+                raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+                local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+                
+                if raycastResult and raycastResult.Instance:IsDescendantOf(entity.Instance) then
+                    local humanoid = character:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        humanoid.Health = 0
+                        SetDeathCause("Hungered", {"You shouldn't have looked...", "Its eyes consume souls"}, "Blue")
+                    end
+                end
+            end
+        end
+    end
+end
 
 entity:SetCallback("OnSpawned", function()
     local cue2 = Instance.new("Sound")
@@ -62,38 +92,32 @@ entity:SetCallback("OnSpawned", function()
     cue2.Volume = 9999
     cue2.PlaybackSpeed = 1
     cue2:Play()
+    --CheckLookAt()
 end)
 
 entity:SetCallback("OnStartMoving", function()
-    --print("Entity has started moving")
+CheckLookAt()
 end)
 
 entity:SetCallback("OnEnterRoom", function(room, firstTime)
-    if firstTime == true then
-        --print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        --print("Entity has entered room: ".. room.Name.. " again")
-    end
+if firstTime == true then
+else
+end
 end)
 
 entity:SetCallback("OnLookAt", function(lineOfSight)
-	if lineOfSight == true then
-		--print("Player is looking at entity")
-	else
-		--print("Player view is obstructed by something")
-	end
+if lineOfSight == true then
+else
+end
 end)
 
 entity:SetCallback("OnRebounding", function(startOfRebound)
-    if startOfRebound == true then
-        --print("Entity has started rebounding")
-	else
-        --print("Entity has finished rebounding")
-	end
+if startOfRebound == true then
+else
+end
 end)
 
 entity:SetCallback("OnDespawning", function()
-    --print("Entity is despawning")
 end)
 
 entity:SetCallback("OnDespawned", function()
@@ -112,10 +136,9 @@ end
 end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
-	if newHealth == 0 then
-		
-	end
+if newHealth == 0 then
+SetDeathCause("Hungered", {"It consumed you...", "Your soul is now its meal"}, "Blue")
+end
 end)
-
 
 entity:Run()
