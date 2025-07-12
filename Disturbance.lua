@@ -59,13 +59,13 @@ local entity = spawner.Create({
 
 
 entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
-workspace.Disturbance.scream:Destroy()
-
-local slam = Instance.new("Sound")
-        slam.Parent = workspace
-				slam.Pitch = 0.6
-				slam.SoundId = "rbxassetid://1546975842"
+    local cue2 = Instance.new("Sound")
+	cue2.Parent = game.Workspace
+	cue2.Name = "Sound"
+	cue2.SoundId = "rbxassetid://1546975842"
+	cue2.Volume = 2.5
+	cue2.PlaybackSpeed = 0.60001
+	cue2:Play()
 
 	local redtweeninfo = TweenInfo.new(3)
 				local redinfo = {Color = Color3.fromRGB(255, 0, 255)}
